@@ -51,6 +51,7 @@ import { AutocompleteComponent } from "./cv/autocomplete/autocomplete.component"
 import { SliderComponent } from "./rxjs/slider/slider.component";
 import { LoggerService } from "./services/logger.service";
 import { SayHelloService } from "./services/say-hello.service";
+import { Logger2Service } from "./services/logger2.service";
 
 @NgModule({
   declarations: [
@@ -107,7 +108,19 @@ import { SayHelloService } from "./services/say-hello.service";
       registrationStrategy: "registerWhenStable:30000",
     }),
   ],
-  providers: [AuthInterceptorProvider, LoggerService, SayHelloService],
+  providers: [
+    AuthInterceptorProvider,
+    {
+      provide: LoggerService,
+      useClass: Logger2Service,
+    },
+    {
+      provide: LoggerService,
+      useClass: LoggerService,
+    },
+
+    SayHelloService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
