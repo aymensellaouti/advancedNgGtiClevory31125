@@ -10,23 +10,23 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ["./master-details.component.css"],
 })
 export class MasterDetailsComponent {
-  cvs: Cv[] = [];
+  acr = inject(ActivatedRoute);
+  cvs: Cv[] = this.acr.snapshot.data["cvs"];
   cvService = inject(CvService);
   toastr = inject(ToastrService);
   router = inject(Router);
-  acr = inject(ActivatedRoute);
   constructor() {
-    this.cvService.getCvs().subscribe({
-      next: (cvs) => {
-        this.cvs = cvs;
-      },
-      error: () => {
-        this.cvs = this.cvService.getFakeCvs();
-        this.toastr.error(`
-          Attention!! Les données sont fictives, problème avec le serveur.
-          Veuillez contacter l'admin.`);
-      },
-    });
+    // this.cvService.getCvs().subscribe({
+    //   next: (cvs) => {
+    //     this.cvs = cvs;
+    //   },
+    //   error: () => {
+    //     this.cvs = this.cvService.getFakeCvs();
+    //     this.toastr.error(`
+    //       Attention!! Les données sont fictives, problème avec le serveur.
+    //       Veuillez contacter l'admin.`);
+    //   },
+    // });
   }
   detailsCv(cv: Cv) {
     this.router.navigate([cv.id], {
