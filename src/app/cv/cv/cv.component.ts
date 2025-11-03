@@ -4,6 +4,7 @@ import { LoggerService } from "../../services/logger.service";
 import { ToastrService } from "ngx-toastr";
 import { CvService } from "../services/cv.service";
 import { EMPTY, Observable, catchError, of } from "rxjs";
+import { SayHelloService } from "../../services/say-hello.service";
 @Component({
   selector: "app-cv",
   templateUrl: "./cv.component.html",
@@ -18,7 +19,8 @@ export class CvComponent {
   constructor(
     private logger: LoggerService,
     private toastr: ToastrService,
-    private cvService: CvService
+    private cvService: CvService,
+    private sayHelloService: SayHelloService
   ) {
     this.cvService.getCvs().subscribe({
       next: (cvs) => {
@@ -33,6 +35,7 @@ export class CvComponent {
     });
     this.logger.logger("je suis le cvComponent");
     this.toastr.info("Bienvenu dans notre CvTech");
+    this.sayHelloService.hello();
   }
   onForwardCv(cv: Cv) {
     this.selectedCv = cv;
