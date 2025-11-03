@@ -57,8 +57,9 @@ import { CONSTANTES } from "../config/const.config";
 import { FakeCvService } from "./cv/services/fake-cv.service";
 import { LOGGERS_TOKEN } from "./injection tokens/loggers.injection-token";
 import { Logger3Service } from "./services/logger3.service";
-import { WeekTodoComponent } from './todo/week-todo/week-todo.component';
-
+import { WeekTodoComponent } from "./todo/week-todo/week-todo.component";
+import { v4 as uuidV4 } from "uuid";
+import { UUID_TOKEN } from "./injection tokens/uuid.injection-token";
 @NgModule({
   declarations: [
     AppComponent,
@@ -140,7 +141,10 @@ import { WeekTodoComponent } from './todo/week-todo/week-todo.component';
       useClass: Logger3Service,
       multi: true,
     },
-
+    {
+      provide: UUID_TOKEN,
+      useValue: () => "aymen",
+    },
     SayHelloService,
   ],
   bootstrap: [AppComponent],
