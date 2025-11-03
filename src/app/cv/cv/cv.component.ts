@@ -6,6 +6,7 @@ import { CvService } from "../services/cv.service";
 import { EMPTY, Observable, catchError, of } from "rxjs";
 import { SayHelloService } from "../../services/say-hello.service";
 import { LOGGERS_TOKEN } from "../../injection tokens/loggers.injection-token";
+import { TodoService } from "../../todo/service/todo.service";
 @Component({
   selector: "app-cv",
   templateUrl: "./cv.component.html",
@@ -22,6 +23,7 @@ export class CvComponent {
     @Inject(LOGGERS_TOKEN) private loggers: LoggerService[],
     private toastr: ToastrService,
     private cvService: CvService,
+    private todoService: TodoService,
     private sayHelloService: SayHelloService
   ) {
     this.cvService.getCvs().subscribe({

@@ -57,6 +57,7 @@ import { CONSTANTES } from "../config/const.config";
 import { FakeCvService } from "./cv/services/fake-cv.service";
 import { LOGGERS_TOKEN } from "./injection tokens/loggers.injection-token";
 import { Logger3Service } from "./services/logger3.service";
+import { WeekTodoComponent } from './todo/week-todo/week-todo.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { Logger3Service } from "./services/logger3.service";
     RhComponent,
     UserListComponent,
     ProductsComponent,
+    WeekTodoComponent,
   ],
   imports: [
     BrowserModule,
