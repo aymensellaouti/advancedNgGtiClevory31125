@@ -52,6 +52,11 @@ import { SliderComponent } from "./rxjs/slider/slider.component";
 import { LoggerService } from "./services/logger.service";
 import { SayHelloService } from "./services/say-hello.service";
 import { Logger2Service } from "./services/logger2.service";
+import { CvService } from "./cv/services/cv.service";
+import { CONSTANTES } from "../config/const.config";
+import { FakeCvService } from "./cv/services/fake-cv.service";
+import { LOGGERS_TOKEN } from "./injection tokens/loggers.injection-token";
+import { Logger3Service } from "./services/logger3.service";
 
 @NgModule({
   declarations: [
@@ -111,12 +116,27 @@ import { Logger2Service } from "./services/logger2.service";
   providers: [
     AuthInterceptorProvider,
     {
+      provide: CvService,
+      useClass: CONSTANTES.env == "prod" ? FakeCvService : CvService,
+    },
+    {
       provide: LoggerService,
       useClass: Logger2Service,
     },
     {
-      provide: LoggerService,
+      provide: LOGGERS_TOKEN,
       useClass: LoggerService,
+      multi: true,
+    },
+    {
+      provide: LOGGERS_TOKEN,
+      useClass: Logger2Service,
+      multi: true,
+    },
+    {
+      provide: LOGGERS_TOKEN,
+      useClass: Logger3Service,
+      multi: true,
     },
 
     SayHelloService,
