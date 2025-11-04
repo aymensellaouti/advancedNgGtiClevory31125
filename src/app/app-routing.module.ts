@@ -14,6 +14,7 @@ import { DetailsCvComponent } from "./cv/details-cv/details-cv.component";
 import { RhComponent } from "./optimizationPattern/rh/rh.component";
 import { MasterDetailsComponent } from "./cv/master-details/master-details.component";
 import { cvsResolver } from "./cv/resolvers/cvs.resolver";
+import { canLeaveGuard } from "./guards/can-leave.guard";
 // 'cv'
 const routes: Route[] = [
   { path: "login", component: LoginComponent },
@@ -41,7 +42,11 @@ const routes: Route[] = [
     path: "",
     component: FrontComponent,
     children: [
-      { path: "todo", component: TodoComponent },
+      {
+        path: "todo",
+        component: TodoComponent,
+        canDeactivate: [canLeaveGuard],
+      },
       { path: "word", component: MiniWordComponent },
     ],
   },
@@ -54,7 +59,11 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      //enableTracing: true,
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

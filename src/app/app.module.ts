@@ -60,7 +60,8 @@ import { Logger3Service } from "./services/logger3.service";
 import { WeekTodoComponent } from "./todo/week-todo/week-todo.component";
 import { v4 as uuidV4 } from "uuid";
 import { UUID_TOKEN } from "./injection tokens/uuid.injection-token";
-import { MasterDetailsComponent } from './cv/master-details/master-details.component';
+import { MasterDetailsComponent } from "./cv/master-details/master-details.component";
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,6 +112,7 @@ import { MasterDetailsComponent } from './cv/master-details/master-details.compo
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxUiLoaderModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
@@ -145,7 +147,7 @@ import { MasterDetailsComponent } from './cv/master-details/master-details.compo
     },
     {
       provide: UUID_TOKEN,
-      useValue: () => "aymen",
+      useValue: () => uuidV4,
     },
     SayHelloService,
   ],
