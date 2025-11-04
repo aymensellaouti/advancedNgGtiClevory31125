@@ -26,21 +26,26 @@ export class TestObservableComponent {
 
     // Fama chkoun interested bech i9ayed
     this.firstObservable$.subscribe({
-      next: (dataJDida) => console.log(dataJDida * 3),
+      next: (dataJDida) => console.log(dataJDida),
     }); // Fama chkoun interested bech i9ayed
     // this.firstObservable$.subscribe({
     //   next: (dataJDida) => (this.counter = dataJDida),
     // });
     // Fama chkoun akher interested bech i9ayed
 
-    setTimeout(() => {
-      this.firstObservable$.subscribe({
+    // setTimeout(() => {
+    this.firstObservable$
+      .pipe(
+        // 5 4 3 2 1
+        map((value) => value * 3)
+        // 15 12 9 6 3
+      )
+      .subscribe({
         next: (value) => {
-          value = value * 2;
           this.toaster.info("" + value);
         },
         complete: () => this.toaster.error("BOOOOM !!!!!"),
       });
-    }, 3000);
+    // }, 3000);
   }
 }
