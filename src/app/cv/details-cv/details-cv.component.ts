@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { APP_ROUTES } from "../../../config/routes.config";
 import { AuthService } from "../../auth/services/auth.service";
+import { catchError, EMPTY, Observable, switchMap } from "rxjs";
 
 @Component({
   selector: "app-details-cv",
@@ -12,7 +13,6 @@ import { AuthService } from "../../auth/services/auth.service";
   styleUrls: ["./details-cv.component.css"],
 })
 export class DetailsCvComponent implements OnInit {
-  cv: Cv | null = null;
   constructor(
     private cvService: CvService,
     private router: Router,
@@ -20,15 +20,21 @@ export class DetailsCvComponent implements OnInit {
     private toastr: ToastrService,
     public authService: AuthService
   ) {}
+  cv$: Observable<Cv> = this.activatedRoute.params.pipe(
+    switchMap((params) => this.cvService.getCvById(params["id"])),
+    catchError(() => {
+      this.router.navigate([APP_ROUTES.cv]);
+      return EMPTY;
+    })
+  );
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.params["id"];
-    this.cvService.getCvById(+id).subscribe({
-      next: (cv) => {
-        this.cv = cv;
-      },
-    });
-
+    // const id = this.activatedRoute.snapshot.params["id"];
+    // this.cvService.getCvById(+id).subscribe({
+    //   next: (cv) => {
+    //     this.cv = cv;
+    //   },
+    // });
     // this.activatedRoute.params.subscribe((params) => {
     //   const id = params["id"];
     //   this.cvService.getCvById(+id).subscribe({

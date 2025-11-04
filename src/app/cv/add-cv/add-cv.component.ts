@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { APP_ROUTES } from "src/config/routes.config";
 import { Cv } from "../model/cv";
+import { debounceTime } from "rxjs";
 
 @Component({
   selector: "app-add-cv",
@@ -21,7 +22,11 @@ export class AddCvComponent {
   cvService = inject(CvService);
   router = inject(Router);
   toastr = inject(ToastrService);
-
+  constructor() {
+    this.name.valueChanges.pipe(debounceTime(500)).subscribe({
+      next: (chaine) => console.log(chaine),
+    });
+  }
   form = this.formBuilder.group(
     {
       name: ["", Validators.required],
