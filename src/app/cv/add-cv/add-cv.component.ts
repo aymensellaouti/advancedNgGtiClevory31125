@@ -22,12 +22,8 @@ export class AddCvComponent {
   cvService = inject(CvService);
   router = inject(Router);
   toastr = inject(ToastrService);
-  constructor() {
-    // this.name.valueChanges.pipe(debounceTime(500)).subscribe({
-    //   next: (chaine) => console.log(chaine),
-    // });
-  }
-  form = this.formBuilder.group(
+
+  form = this.formBuilder.nonNullable.group(
     {
       name: ["", Validators.required],
       firstname: ["", Validators.required],
@@ -44,6 +40,7 @@ export class AddCvComponent {
         0,
         {
           validators: [Validators.required],
+          updateOn: "blur",
         },
       ],
     },
@@ -52,7 +49,21 @@ export class AddCvComponent {
       asyncValidators: [],
     }
   );
-
+  constructor() {
+    this.age.valueChanges.subscribe({
+      next: (age) => {
+        if (age < 18) {
+          this.path?.disable();
+          this.path?.reset();
+        } else {
+          this.path?.enable();
+        }
+      },
+    });
+    // this.name.valueChanges.pipe(debounceTime(500)).subscribe({
+    //   next: (chaine) => console.log(chaine),
+    // });
+  }
   addCv() {
     this.cvService.addCv(this.form.getRawValue() as Cv).subscribe({
       next: () => {
