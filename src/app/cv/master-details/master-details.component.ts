@@ -16,6 +16,9 @@ export class MasterDetailsComponent {
   toastr = inject(ToastrService);
   router = inject(Router);
   constructor() {
+    this.cvService.selectedCv$.subscribe({
+      next: (cv) => this.detailsCv(cv),
+    });
     // this.cvService.getCvs().subscribe({
     //   next: (cvs) => {
     //     this.cvs = cvs;

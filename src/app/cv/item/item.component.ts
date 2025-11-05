@@ -15,6 +15,7 @@ export class ItemComponent {
 
   onSelectCv() {
     if (this.cv) {
+      this.cvService.selectCv(this.cv);
       //this.selectCv.emit(this.cv);
     }
   }
