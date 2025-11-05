@@ -21,4 +21,5 @@ export class ProductsComponent {
   /* Tips : vous pouvez voir les différents imports non utilisés et vous en inspirer */
   products$!: Observable<Product[]>;
   constructor() {}
+  getMore() {}
 }
