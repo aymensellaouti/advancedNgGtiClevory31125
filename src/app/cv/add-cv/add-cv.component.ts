@@ -23,9 +23,9 @@ export class AddCvComponent {
   router = inject(Router);
   toastr = inject(ToastrService);
   constructor() {
-    this.name.valueChanges.pipe(debounceTime(500)).subscribe({
-      next: (chaine) => console.log(chaine),
-    });
+    // this.name.valueChanges.pipe(debounceTime(500)).subscribe({
+    //   next: (chaine) => console.log(chaine),
+    // });
   }
   form = this.formBuilder.group(
     {
@@ -53,8 +53,8 @@ export class AddCvComponent {
     }
   );
 
-  addCv(cv: Cv) {
-    this.cvService.addCv(cv).subscribe({
+  addCv() {
+    this.cvService.addCv(this.form.getRawValue() as Cv).subscribe({
       next: () => {
         this.toastr.success(`Le cv a été ajouté avec succès`);
         this.router.navigate([APP_ROUTES.cv]);
