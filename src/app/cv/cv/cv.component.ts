@@ -3,7 +3,7 @@ import { Cv } from "../model/cv";
 import { LoggerService } from "../../services/logger.service";
 import { ToastrService } from "ngx-toastr";
 import { CvService } from "../services/cv.service";
-import { EMPTY, Observable, catchError, of } from "rxjs";
+import { EMPTY, Observable, catchError, delay, of, retry } from "rxjs";
 import { SayHelloService } from "../../services/say-hello.service";
 import { LOGGERS_TOKEN } from "../../injection tokens/loggers.injection-token";
 import { TodoService } from "../../todo/service/todo.service";
@@ -14,6 +14,10 @@ import { TodoService } from "../../todo/service/todo.service";
 })
 export class CvComponent {
   cvs$: Observable<Cv[]> = this.cvService.getCvs().pipe(
+    retry({
+      delay: 1500,
+      count: 3,
+    }),
     catchError((e) => {
       this.toastr.error(`
           Attention!! Les données sont fictives, problème avec le serveur.

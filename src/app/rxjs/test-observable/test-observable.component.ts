@@ -13,6 +13,7 @@ export class TestObservableComponent {
   //counter = 5;
   constructor(private toaster: ToastrService) {
     this.firstObservable$ = new Observable((observer) => {
+      // n'implémenti fel logique de création du flux
       let i = 5;
       const intervalIndex = setInterval(() => {
         if (!i) {
