@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnDestroy } from "@angular/core";
 import {
   AbstractControl,
   FormBuilder,
@@ -11,13 +11,14 @@ import { ToastrService } from "ngx-toastr";
 import { APP_ROUTES } from "src/config/routes.config";
 import { Cv } from "../model/cv";
 import { debounceTime } from "rxjs";
+import { CONSTANTES } from "../../../config/const.config";
 
 @Component({
   selector: "app-add-cv",
   templateUrl: "./add-cv.component.html",
   styleUrls: ["./add-cv.component.css"],
 })
-export class AddCvComponent {
+export class AddCvComponent implements OnDestroy {
   formBuilder = inject(FormBuilder);
   cvService = inject(CvService);
   router = inject(Router);
@@ -60,15 +61,29 @@ export class AddCvComponent {
         }
       },
     });
+    const addCvForm = localStorage.getItem(CONSTANTES.addCvForm);
+    if (addCvForm) {
+      this.form.patchValue(JSON.parse(addCvForm));
+    }
     // this.name.valueChanges.pipe(debounceTime(500)).subscribe({
     //   next: (chaine) => console.log(chaine),
     // });
+  }
+  ngOnDestroy(): void {
+    if (this.form.valid) {
+      localStorage.setItem(
+        CONSTANTES.addCvForm,
+        JSON.stringify(this.form.getRawValue())
+      );
+    }
   }
   addCv() {
     this.cvService.addCv(this.form.getRawValue() as Cv).subscribe({
       next: () => {
         this.toastr.success(`Le cv a été ajouté avec succès`);
         this.router.navigate([APP_ROUTES.cv]);
+        localStorage.removeItem(CONSTANTES.addCvForm);
+        this.form.reset();
       },
       error: (erreur) => {
         console.log(erreur);
