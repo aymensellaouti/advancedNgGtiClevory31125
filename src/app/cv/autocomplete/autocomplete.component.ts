@@ -15,4 +15,9 @@ export class AutocompleteComponent {
     return this.form.get("search")!;
   }
   form = this.formBuilder.group({ search: [""] });
+  cvs$ = this.search.valueChanges.pipe(
+    debounceTime(500),
+    distinctUntilChanged(),
+    switchMap((search) => this.cvService.selectByName(search))
+  );
 }
