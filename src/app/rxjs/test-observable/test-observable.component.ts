@@ -1,5 +1,13 @@
 import { Component, inject, OnDestroy } from "@angular/core";
-import { Observable, Subscription, filter, map, take } from "rxjs";
+import {
+  Observable,
+  Subject,
+  Subscription,
+  filter,
+  map,
+  take,
+  takeUntil,
+} from "rxjs";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -7,9 +15,11 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: "./test-observable.component.html",
   styleUrls: ["./test-observable.component.css"],
 })
-export class TestObservableComponent {
+export class TestObservableComponent implements OnDestroy {
   firstObservable$: Observable<number>;
   toastr = inject(ToastrService);
+  yezikMaKhdemt$ = new Subject();
+  subscriptions = new Subscription();
   //counter = 5;
   constructor(private toaster: ToastrService) {
     this.firstObservable$ = new Observable((observer) => {
@@ -26,30 +36,39 @@ export class TestObservableComponent {
     });
 
     // Fama chkoun interested bech i9ayed
-    this.firstObservable$.subscribe({
-      next: (dataJDida) => console.log(dataJDida),
-    }); // Fama chkoun interested bech i9ayed
+    this.subscriptions.add(
+      this.firstObservable$.pipe(takeUntil(this.yezikMaKhdemt$)).subscribe({
+        next: (dataJDida) => console.log(dataJDida),
+      })
+    ); // Fama chkoun interested bech i9ayed
     // this.firstObservable$.subscribe({
     //   next: (dataJDida) => (this.counter = dataJDida),
     // });
     // Fama chkoun akher interested bech i9ayed
 
     // setTimeout(() => {
-    this.firstObservable$
-      .pipe(
-        // 5 4 3 2 1
-        map((value) => value * 3),
-        // 15 12 9 6 3
-        filter((val) => val % 2 == 0),
-        //12 6
-        take(2)
-      )
-      .subscribe({
-        next: (value) => {
-          this.toaster.info("" + value);
-        },
-        complete: () => this.toaster.error("BOOOOM !!!!!"),
-      });
+    this.subscriptions.add(
+      this.firstObservable$
+        .pipe(
+          // 5 4 3 2 1
+          map((value) => value * 3),
+          // 15 12 9 6 3
+          filter((val) => val % 2 == 0),
+          //12 6
+          take(2)
+        )
+        .subscribe({
+          next: (value) => {
+            this.toaster.info("" + value);
+          },
+          complete: () => this.toaster.error("BOOOOM !!!!!"),
+        })
+    );
     // }, 3000);
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+    this.yezikMaKhdemt$.next("");
+    this.yezikMaKhdemt$.complete();
   }
 }

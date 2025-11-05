@@ -1,8 +1,10 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnDestroy } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { CvService } from "../services/cv.service";
 import { Cv } from "../model/cv";
 import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-master-details",
@@ -15,10 +17,13 @@ export class MasterDetailsComponent {
   cvService = inject(CvService);
   toastr = inject(ToastrService);
   router = inject(Router);
+  subscribtion!: Subscription;
   constructor() {
-    this.cvService.selectedCv$.subscribe({
-      next: (cv) => this.detailsCv(cv),
-    });
+    this.subscribtion = this.cvService.selectedCv$
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (cv) => this.detailsCv(cv),
+      });
     // this.cvService.getCvs().subscribe({
     //   next: (cvs) => {
     //     this.cvs = cvs;
