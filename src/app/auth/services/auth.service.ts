@@ -3,7 +3,7 @@ import { CredentialsDto } from "../dto/credentials.dto";
 import { LoginResponseDto } from "../dto/login-response.dto";
 import { HttpClient } from "@angular/common/http";
 import { API } from "../../../config/api.config";
-import { Observable } from "rxjs";
+import { BehaviorSubject, map, Observable, Subject, tap } from "rxjs";
 import { CONSTANTES } from "../../../config/const.config";
 
 export interface ConnectedUser {
@@ -15,13 +15,30 @@ export interface ConnectedUser {
   providedIn: "root",
 })
 export class AuthService {
-  user$!;
-  isLoggedIn$!: Observable<boolean>;
-  isLoggedOut$!: Observable<boolean>;
-  constructor(private http: HttpClient) {}
+  #userSubeject$ = new BehaviorSubject<ConnectedUser | null>(null);
+  user$ = this.#userSubeject$.asObservable();
+  isLoggedIn$: Observable<boolean> = this.user$.pipe(map((user) => !!user));
+  isLoggedOut$: Observable<boolean> = this.user$.pipe(map((user) => !user));
+  constructor(private http: HttpClient) {
+    // choufli el user fel localstorage
+    const user = localStorage.getItem(CONSTANTES.connectedUser);
+    if (user) {
+      this.#userSubeject$.next(JSON.parse(user));
+    }
+  }
 
   login(credentials: CredentialsDto): Observable<LoginResponseDto> {
-    return this.http.post<LoginResponseDto>(API.login, credentials);
+    return this.http.post<LoginResponseDto>(API.login, credentials).pipe(
+      tap((response) => {
+        const user: ConnectedUser = {
+          id: response.userId,
+          email: credentials.email,
+        };
+        this.#userSubeject$.next(user);
+        localStorage.setItem(CONSTANTES.connectedUser, JSON.stringify(user));
+        this.saveToken(response.id);
+      })
+    );
   }
 
   isAuthenticated(): boolean {
@@ -29,7 +46,9 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("token");
+    this.clearToken();
+    localStorage.removeItem(CONSTANTES.connectedUser);
+    this.#userSubeject$.next(null);
   }
   getToken(): string {
     return localStorage.getItem(CONSTANTES.tokenKey) ?? "";
