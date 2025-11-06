@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Route } from "@angular/router";
+import { RouterModule, Route, PreloadAllModules } from "@angular/router";
 import { TodoComponent } from "./todo/todo/todo.component";
 import { MiniWordComponent } from "./directives/mini-word/mini-word.component";
 import { ColorComponent } from "./components/color/color.component";
@@ -16,29 +16,22 @@ import { MasterDetailsComponent } from "./cv/master-details/master-details.compo
 import { cvsResolver } from "./cv/resolvers/cvs.resolver";
 import { canLeaveGuard } from "./guards/can-leave.guard";
 import { ProductsComponent } from "./products/products.component";
+import { CustomPreloadingStratey } from "./preloading strategis/custom.preloading-strategy";
 // 'cv'
 const routes: Route[] = [
   { path: "login", component: LoginComponent },
   { path: "rh", component: RhComponent },
   { path: "products", component: ProductsComponent },
   {
+    path: "todo",
+    loadChildren: () => import("./todo/todo.module").then((m) => m.TodoModule),
+  },
+  {
     path: "cv",
-    children: [
-      {
-        path: "list",
-        component: MasterDetailsComponent,
-        resolve: {
-          cvs: cvsResolver,
-        },
-        children: [{ path: ":id", component: DetailsCvComponent }],
-      },
-      {
-        path: "",
-        component: CvComponent,
-      },
-      { path: "add", component: AddCvComponent, canActivate: [authGuard] },
-      { path: ":id", component: DetailsCvComponent },
-    ],
+    data: {
+      preload: true,
+    },
+    loadChildren: () => import("./cv/cv.module").then((m) => m.CvModule),
   },
   {
     path: "",
@@ -57,6 +50,7 @@ const routes: Route[] = [
   imports: [
     RouterModule.forRoot(routes, {
       //enableTracing: true,
+      preloadingStrategy: CustomPreloadingStratey,
     }),
   ],
   exports: [RouterModule],
