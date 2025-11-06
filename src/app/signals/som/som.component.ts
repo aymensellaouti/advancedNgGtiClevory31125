@@ -10,6 +10,11 @@ import { FormsModule } from "@angular/forms";
 export class SomComponent {
   x = signal(3);
   y = signal(5);
+  names = signal<string[]>(["aymen"]);
+  addName() {
+    this.names.update((names) => [...names, "test"]);
+  }
+  namesNumber = computed(() => this.names().length);
   z = computed(() => this.x() + this.y());
   dz = computed(() => this.z() * 2);
 }

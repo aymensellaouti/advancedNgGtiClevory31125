@@ -10,12 +10,19 @@ import {
 import { NgxUiLoaderService, NgxUiLoaderModule } from "ngx-ui-loader";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { SomComponent } from "./signals/som/som.component";
+import { TtcComponent } from "./signals/ttc/ttc.component";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
-  imports: [NavbarComponent, NgxUiLoaderModule, RouterOutlet, SomComponent],
+  imports: [
+    NavbarComponent,
+    NgxUiLoaderModule,
+    RouterOutlet,
+    SomComponent,
+    TtcComponent,
+  ],
 })
 export class AppComponent {
   title = "Starting Advanced Topics";
