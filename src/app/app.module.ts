@@ -2,7 +2,7 @@ import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 import { ToastrModule } from "ngx-toastr";
 
@@ -49,82 +49,75 @@ import { v4 as uuidV4 } from "uuid";
 import { UUID_TOKEN } from "./injection tokens/uuid.injection-token";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { CvModule } from "./cv/cv.module";
-@NgModule({
-  declarations: [
-    AppComponent,
-    FirstComponent,
-    SecondComponent,
-    ColorComponent,
-    TwoComponent,
-    PereComponent,
-    FilsComponent,
-
-    NgstyleComponent,
-    MiniWordComponent,
-    NgclassComponent,
-    HighlightDirective,
-    RainbowDirective,
-    Btc2usdPipe,
-    NavbarComponent,
-    FrontComponent,
-    AdminComponent,
-    NF404Component,
-    TestFormComponent,
-    LoginComponent,
-    TestObservableComponent,
-    SliderComponent,
-    TestHttpComponent,
-    RhComponent,
-    UserListComponent,
-    ProductsComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    NgxUiLoaderModule,
-    ServiceWorkerModule.register("ngsw-worker.js", {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: "registerWhenStable:30000",
-    }),
-  ],
-  providers: [
-    AuthInterceptorProvider,
-    {
-      provide: CvService,
-      useClass: CONSTANTES.env == "prod" ? FakeCvService : CvService,
-    },
-    {
-      provide: LoggerService,
-      useClass: Logger2Service,
-    },
-    {
-      provide: LOGGERS_TOKEN,
-      useClass: LoggerService,
-      multi: true,
-    },
-    {
-      provide: LOGGERS_TOKEN,
-      useClass: Logger2Service,
-      multi: true,
-    },
-    {
-      provide: LOGGERS_TOKEN,
-      useClass: Logger3Service,
-      multi: true,
-    },
-    {
-      provide: UUID_TOKEN,
-      useValue: () => uuidV4,
-    },
-    SayHelloService,
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        FirstComponent,
+        SecondComponent,
+        ColorComponent,
+        TwoComponent,
+        PereComponent,
+        FilsComponent,
+        NgstyleComponent,
+        MiniWordComponent,
+        NgclassComponent,
+        HighlightDirective,
+        RainbowDirective,
+        Btc2usdPipe,
+        NavbarComponent,
+        FrontComponent,
+        AdminComponent,
+        NF404Component,
+        TestFormComponent,
+        LoginComponent,
+        TestObservableComponent,
+        SliderComponent,
+        TestHttpComponent,
+        RhComponent,
+        UserListComponent,
+        ProductsComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(), // ToastrModule added
+        AppRoutingModule,
+        ReactiveFormsModule,
+        NgxUiLoaderModule,
+        ServiceWorkerModule.register("ngsw-worker.js", {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: "registerWhenStable:30000",
+        })], providers: [
+        AuthInterceptorProvider,
+        {
+            provide: CvService,
+            useClass: CONSTANTES.env == "prod" ? FakeCvService : CvService,
+        },
+        {
+            provide: LoggerService,
+            useClass: Logger2Service,
+        },
+        {
+            provide: LOGGERS_TOKEN,
+            useClass: LoggerService,
+            multi: true,
+        },
+        {
+            provide: LOGGERS_TOKEN,
+            useClass: Logger2Service,
+            multi: true,
+        },
+        {
+            provide: LOGGERS_TOKEN,
+            useClass: Logger3Service,
+            multi: true,
+        },
+        {
+            provide: UUID_TOKEN,
+            useValue: () => uuidV4,
+        },
+        SayHelloService,
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
