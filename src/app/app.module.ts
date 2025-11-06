@@ -22,7 +22,6 @@ import { DetailsCvComponent } from "./cv/details-cv/details-cv.component";
 import { NgstyleComponent } from "./directives/ngstyle/ngstyle.component";
 import { MiniWordComponent } from "./directives/mini-word/mini-word.component";
 import { NgclassComponent } from "./directives/ngclass/ngclass.component";
-import { TodoComponent } from "./todo/todo/todo.component";
 
 import { HighlightDirective } from "./directives/highlight.directive";
 import { RainbowDirective } from "./directives/rainbow.directive";
@@ -57,11 +56,11 @@ import { CONSTANTES } from "../config/const.config";
 import { FakeCvService } from "./cv/services/fake-cv.service";
 import { LOGGERS_TOKEN } from "./injection tokens/loggers.injection-token";
 import { Logger3Service } from "./services/logger3.service";
-import { WeekTodoComponent } from "./todo/week-todo/week-todo.component";
 import { v4 as uuidV4 } from "uuid";
 import { UUID_TOKEN } from "./injection tokens/uuid.injection-token";
 import { MasterDetailsComponent } from "./cv/master-details/master-details.component";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { TodoModule } from "./todo/todo.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +71,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     CardProfilComponent,
     PereComponent,
     FilsComponent,
+
+    // Cv Feature
     AddCvComponent,
     CvComponent,
     ListComponent,
@@ -82,13 +83,14 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     EmbaucheComponent,
     DefaultImagePipe,
     AutocompleteComponent,
+    MasterDetailsComponent,
+
     NgstyleComponent,
     MiniWordComponent,
     NgclassComponent,
     HighlightDirective,
     RainbowDirective,
     Btc2usdPipe,
-    TodoComponent,
     NavbarComponent,
     FrontComponent,
     AdminComponent,
@@ -101,14 +103,13 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     RhComponent,
     UserListComponent,
     ProductsComponent,
-    WeekTodoComponent,
-    MasterDetailsComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    TodoModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
