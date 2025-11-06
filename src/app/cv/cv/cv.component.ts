@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { Cv } from "../model/cv";
 import { LoggerService } from "../../services/logger.service";
 import { ToastrService } from "ngx-toastr";
@@ -18,6 +18,12 @@ import { AsyncPipe, UpperCasePipe, DatePipe } from "@angular/common";
     imports: [ListComponent, CvCardComponent, EmbaucheComponent, AsyncPipe, UpperCasePipe, DatePipe]
 })
 export class CvComponent {
+  private loggers = inject(LOGGERS_TOKEN);
+  private toastr = inject(ToastrService);
+  private cvService = inject(CvService);
+  private todoService = inject(TodoService);
+  private sayHelloService = inject(SayHelloService);
+
   cvs$: Observable<Cv[]> = this.cvService.getCvs().pipe(
     retry({
       delay: 1500,
@@ -34,14 +40,7 @@ export class CvComponent {
   /*   selectedCv: Cv | null = null; */
   date = new Date();
 
-  constructor(
-    //private logger: LoggerService,
-    @Inject(LOGGERS_TOKEN) private loggers: LoggerService[],
-    private toastr: ToastrService,
-    private cvService: CvService,
-    private todoService: TodoService,
-    private sayHelloService: SayHelloService
-  ) {
+  constructor() {
     //this.logger.logger("je suis le cvComponent");
     this.toastr.info("Bienvenu dans notre CvTech");
     this.sayHelloService.hello();

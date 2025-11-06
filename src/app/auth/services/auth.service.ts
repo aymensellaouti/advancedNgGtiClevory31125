@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { CredentialsDto } from "../dto/credentials.dto";
 import { LoginResponseDto } from "../dto/login-response.dto";
 import { HttpClient } from "@angular/common/http";
@@ -15,11 +15,13 @@ export interface ConnectedUser {
   providedIn: "root",
 })
 export class AuthService {
+  private http = inject(HttpClient);
+
   #userSubeject$ = new BehaviorSubject<ConnectedUser | null>(null);
   user$ = this.#userSubeject$.asObservable();
   isLoggedIn$: Observable<boolean> = this.user$.pipe(map((user) => !!user));
   isLoggedOut$: Observable<boolean> = this.user$.pipe(map((user) => !user));
-  constructor(private http: HttpClient) {
+  constructor() {
     // choufli el user fel localstorage
     const user = localStorage.getItem(CONSTANTES.connectedUser);
     if (user) {

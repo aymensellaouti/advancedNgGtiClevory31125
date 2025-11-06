@@ -1,9 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { LoggerService } from "./logger.service";
 
 @Injectable()
 export class SayHelloService {
-  constructor(private loggerService: LoggerService) {}
+  private loggerService = inject(LoggerService);
+
   hello() {
     this.loggerService.logger("Hello GTI :)");
   }

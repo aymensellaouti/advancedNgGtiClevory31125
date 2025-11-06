@@ -5,14 +5,17 @@ import {
   NavigationError,
   NavigationStart,
   Router,
+  RouterOutlet,
 } from "@angular/router";
-import { NgxUiLoaderService } from "ngx-ui-loader";
+import { NgxUiLoaderService, NgxUiLoaderModule } from "ngx-ui-loader";
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { SomComponent } from "./signals/som/som.component";
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.css"],
-    standalone: false
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+  imports: [NavbarComponent, NgxUiLoaderModule, RouterOutlet, SomComponent],
 })
 export class AppComponent {
   title = "Starting Advanced Topics";

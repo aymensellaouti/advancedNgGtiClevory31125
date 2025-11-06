@@ -9,13 +9,13 @@ import { debounceTime } from "rxjs";
 import { CONSTANTES } from "../../../config/const.config";
 import { uniqueCinValidator } from "../../validators/unique-cin.async-validator";
 import { ageCinValdiator } from "../../validators/age-cin.validator";
-import { NgIf } from "@angular/common";
+
 
 @Component({
     selector: "app-add-cv",
     templateUrl: "./add-cv.component.html",
     styleUrls: ["./add-cv.component.css"],
-    imports: [FormsModule, ReactiveFormsModule, NgIf]
+    imports: [FormsModule, ReactiveFormsModule]
 })
 export class AddCvComponent implements OnDestroy {
   formBuilder = inject(FormBuilder);

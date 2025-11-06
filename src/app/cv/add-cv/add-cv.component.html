@@ -8,21 +8,23 @@
     formControlName="firstname"
     type="text"
     class="form-control"
-  />
+    />
 
-  <label for="job">Job</label>
-  <input id="job" type="text" formControlName="job" class="form-control" />
+    <label for="job">Job</label>
+    <input id="job" type="text" formControlName="job" class="form-control" />
 
-  <label for="age">Age</label>
-  <input id="age" type="number" formControlName="age" class="form-control" />
+    <label for="age">Age</label>
+    <input id="age" type="number" formControlName="age" class="form-control" />
 
-  <label for="cin">Cin</label>
-  <input id="cin" type="text" formControlName="cin" class="form-control" />
+    <label for="cin">Cin</label>
+    <input id="cin" type="text" formControlName="cin" class="form-control" />
 
-  <label for="path">Path</label>
-  <input id="path" type="text" formControlName="path" class="form-control" />
-  <div *ngIf="form.hasError('ageCin')" class="alert alert-danger">
-    {{ form.getError("ageCin") }}
-  </div>
-  <button (click)="addCv()" class="btn btn-primary">Envoyer</button>
-</form>
+    <label for="path">Path</label>
+    <input id="path" type="text" formControlName="path" class="form-control" />
+    @if (form.hasError('ageCin')) {
+      <div class="alert alert-danger">
+        {{ form.getError("ageCin") }}
+      </div>
+    }
+    <button (click)="addCv()" class="btn btn-primary">Envoyer</button>
+  </form>

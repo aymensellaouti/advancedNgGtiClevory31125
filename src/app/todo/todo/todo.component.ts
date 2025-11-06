@@ -2,7 +2,7 @@ import { Component, inject } from "@angular/core";
 import { Todo } from "../model/todo";
 import { TodoService } from "../service/todo.service";
 import { CanLeave } from "../../guards/can-leave.interface";
-import { NgFor } from "@angular/common";
+
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -10,7 +10,7 @@ import { FormsModule } from "@angular/forms";
     templateUrl: "./todo.component.html",
     styleUrls: ["./todo.component.css"],
     providers: [TodoService],
-    imports: [NgFor, FormsModule]
+    imports: [FormsModule]
 })
 export class TodoComponent implements CanLeave {
   todos: Todo[] = [];

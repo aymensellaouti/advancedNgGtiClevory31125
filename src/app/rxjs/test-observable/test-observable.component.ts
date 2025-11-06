@@ -18,12 +18,14 @@ import { AsyncPipe } from "@angular/common";
     imports: [AsyncPipe]
 })
 export class TestObservableComponent implements OnDestroy {
+  private toaster = inject(ToastrService);
+
   firstObservable$: Observable<number>;
   toastr = inject(ToastrService);
   yezikMaKhdemt$ = new Subject();
   subscriptions = new Subscription();
   //counter = 5;
-  constructor(private toaster: ToastrService) {
+  constructor() {
     this.firstObservable$ = new Observable((observer) => {
       // n'implémenti fel logique de création du flux
       let i = 5;

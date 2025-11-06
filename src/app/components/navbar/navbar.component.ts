@@ -1,22 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../auth/services/auth.service';
 import { Router, RouterLinkActive, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { APP_ROUTES } from '../../../config/routes.config';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css'],
-    imports: [RouterLinkActive, RouterLink, NgIf, AsyncPipe]
+    imports: [RouterLinkActive, RouterLink, AsyncPipe]
 })
 export class NavbarComponent {
-  constructor(
-    public authService: AuthService,
-    private router: Router,
-    private toastr: ToastrService
-  ) {}
+  authService = inject(AuthService);
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
+
 
   logout() {
     this.authService.logout();

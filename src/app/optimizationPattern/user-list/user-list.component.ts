@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {User} from "../users.service";
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+
 
 export const fibonnaci = (n: number): number => {
   if (n==1 || n==0) {
@@ -14,7 +14,7 @@ export const fibonnaci = (n: number): number => {
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
     styleUrls: ['./user-list.component.css'],
-    imports: [FormsModule, NgFor]
+    imports: [FormsModule]
 })
 export class UserListComponent {
   @Input() usersCluster: string = '';
