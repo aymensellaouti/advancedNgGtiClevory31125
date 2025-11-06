@@ -49,6 +49,8 @@ import { v4 as uuidV4 } from "uuid";
 import { UUID_TOKEN } from "./injection tokens/uuid.injection-token";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { CvModule } from "./cv/cv.module";
+import { CdfilsComponent } from './cd/cdfils/cdfils.component';
+import { CdPereComponent } from './cd/cd-pere/cd-pere.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +79,8 @@ import { CvModule } from "./cv/cv.module";
     RhComponent,
     UserListComponent,
     ProductsComponent,
+    CdfilsComponent,
+    CdPereComponent,
   ],
   imports: [
     BrowserModule,
