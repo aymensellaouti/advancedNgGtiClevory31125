@@ -12,6 +12,7 @@ import { APP_ROUTES } from "src/config/routes.config";
 import { Cv } from "../model/cv";
 import { debounceTime } from "rxjs";
 import { CONSTANTES } from "../../../config/const.config";
+import { uniqueCinValidator } from "../../validators/unique-cin.async-validator";
 
 @Component({
   selector: "app-add-cv",
@@ -34,7 +35,10 @@ export class AddCvComponent implements OnDestroy {
         "",
         {
           validators: [Validators.required, Validators.pattern("[0-9]{8}")],
-          asyncValidators: [],
+          asyncValidators: [uniqueCinValidator(this.cvService)],
+          // Ma tvalidai walla teb3eth valueChange wel statusChange kan ma
+          // tokhrej mel champ
+          updateOn: "blur",
         },
       ],
       age: [
