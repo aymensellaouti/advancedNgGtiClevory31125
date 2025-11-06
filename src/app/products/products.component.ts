@@ -10,12 +10,13 @@ import {
 import { Product } from "./dto/product.dto";
 import { ProductService } from "./services/product.service";
 import { Settings } from "./dto/product-settings.dto";
+import { NgIf, NgFor, AsyncPipe } from "@angular/common";
 
 @Component({
     selector: "app-products",
     templateUrl: "./products.component.html",
     styleUrls: ["./products.component.css"],
-    standalone: false
+    imports: [NgIf, NgFor, AsyncPipe]
 })
 export class ProductsComponent {
   private productService = inject(ProductService);

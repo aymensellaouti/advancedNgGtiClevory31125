@@ -1,9 +1,6 @@
 import { Directive, HostBinding, HostListener } from '@angular/core';
 
-@Directive({
-    selector: 'input[appRainbow]',
-    standalone: false
-})
+@Directive({ selector: 'input[appRainbow]' })
 export class RainbowDirective {
   @HostBinding('style.color') color = 'red';
   @HostBinding('style.borderColor') bc = 'red';

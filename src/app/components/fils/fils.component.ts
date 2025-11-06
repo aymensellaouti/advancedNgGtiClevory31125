@@ -2,8 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 @Component({
     selector: 'app-fils',
     templateUrl: './fils.component.html',
-    styleUrls: ['./fils.component.css'],
-    standalone: false
+    styleUrls: ['./fils.component.css']
 })
 export class FilsComponent {
   /**

@@ -2,7 +2,10 @@ import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 
 import { ToastrModule } from "ngx-toastr";
 
@@ -49,8 +52,23 @@ import { v4 as uuidV4 } from "uuid";
 import { UUID_TOKEN } from "./injection tokens/uuid.injection-token";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { CvModule } from "./cv/cv.module";
-@NgModule({ declarations: [
-        AppComponent,
+@NgModule({
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(), // ToastrModule added
+        AppRoutingModule,
+        ReactiveFormsModule,
+        NgxUiLoaderModule,
+        ServiceWorkerModule.register("ngsw-worker.js", {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: "registerWhenStable:30000",
+        }),
         FirstComponent,
         SecondComponent,
         ColorComponent,
@@ -76,19 +94,7 @@ import { CvModule } from "./cv/cv.module";
         UserListComponent,
         ProductsComponent,
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        FormsModule,
-        BrowserAnimationsModule, // required animations module
-        ToastrModule.forRoot(), // ToastrModule added
-        AppRoutingModule,
-        ReactiveFormsModule,
-        NgxUiLoaderModule,
-        ServiceWorkerModule.register("ngsw-worker.js", {
-            enabled: !isDevMode(),
-            // Register the ServiceWorker as soon as the application is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: "registerWhenStable:30000",
-        })], providers: [
+    providers: [
         AuthInterceptorProvider,
         {
             provide: CvService,
@@ -119,5 +125,6 @@ import { CvModule } from "./cv/cv.module";
         },
         SayHelloService,
         provideHttpClient(withInterceptorsFromDi()),
-    ] })
+    ],
+})
 export class AppModule {}

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, inject, Input } from "@angular/core";
 import { Observable, combineLatest, map, startWith, tap, timer } from "rxjs";
+import { NgStyle, AsyncPipe } from "@angular/common";
 
 export interface ImageApi {
   _id: number;
@@ -13,7 +14,7 @@ export interface ImageApi {
     selector: "app-slider",
     templateUrl: "./slider.component.html",
     styleUrls: ["./slider.component.css"],
-    standalone: false
+    imports: [NgStyle, AsyncPipe]
 })
 export class SliderComponent {
   @Input() timer = 1500;

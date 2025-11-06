@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { APP_ROUTES } from '../../../config/routes.config';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css'],
-    standalone: false
+    imports: [RouterLinkActive, RouterLink, NgIf, AsyncPipe]
 })
 export class NavbarComponent {
   constructor(

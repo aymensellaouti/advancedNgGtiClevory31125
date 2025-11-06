@@ -7,8 +7,7 @@ import { Component } from '@angular/core';
       second works!
     </p>
   `,
-    styles: [],
-    standalone: false
+    styles: []
 })
 export class SecondComponent {
 

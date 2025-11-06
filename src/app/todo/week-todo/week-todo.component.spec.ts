@@ -8,8 +8,8 @@ describe('WeekTodoComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WeekTodoComponent]
-    });
+    imports: [WeekTodoComponent]
+});
     fixture = TestBed.createComponent(WeekTodoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

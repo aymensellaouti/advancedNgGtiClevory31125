@@ -7,11 +7,15 @@ import { EMPTY, Observable, catchError, delay, of, retry } from "rxjs";
 import { SayHelloService } from "../../services/say-hello.service";
 import { LOGGERS_TOKEN } from "../../injection tokens/loggers.injection-token";
 import { TodoService } from "../../todo/service/todo.service";
+import { ListComponent } from "../list/list.component";
+import { CvCardComponent } from "../cv-card/cv-card.component";
+import { EmbaucheComponent } from "../embauche/embauche.component";
+import { AsyncPipe, UpperCasePipe, DatePipe } from "@angular/common";
 @Component({
     selector: "app-cv",
     templateUrl: "./cv.component.html",
     styleUrls: ["./cv.component.css"],
-    standalone: false
+    imports: [ListComponent, CvCardComponent, EmbaucheComponent, AsyncPipe, UpperCasePipe, DatePipe]
 })
 export class CvComponent {
   cvs$: Observable<Cv[]> = this.cvService.getCvs().pipe(

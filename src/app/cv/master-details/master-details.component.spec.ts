@@ -8,8 +8,8 @@ describe('MasterDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MasterDetailsComponent]
-    });
+    imports: [MasterDetailsComponent]
+});
     fixture = TestBed.createComponent(MasterDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

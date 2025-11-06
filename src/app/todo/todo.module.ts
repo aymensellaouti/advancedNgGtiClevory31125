@@ -6,12 +6,9 @@ import { TodoRoutingModule } from "./todo-routing.module";
 import { CommonModule } from "@angular/common";
 
 @NgModule({
-  // chkounhom les components, directives
-  // et pieps eli tab3in 3ayelti
-  declarations: [TodoComponent, WeekTodoComponent],
-  // Les besoins eli mwaferhom el 3ayelti
-  imports: [FormsModule, TodoRoutingModule, CommonModule],
-  // el 7ajet eli nhab nsharihom
-  exports: [],
+    // Les besoins eli mwaferhom el 3ayelti
+    imports: [FormsModule, TodoRoutingModule, CommonModule, TodoComponent, WeekTodoComponent],
+    // el 7ajet eli nhab nsharihom
+    exports: [],
 })
 export class TodoModule {}
