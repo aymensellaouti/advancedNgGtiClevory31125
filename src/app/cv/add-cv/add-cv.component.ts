@@ -13,6 +13,7 @@ import { Cv } from "../model/cv";
 import { debounceTime } from "rxjs";
 import { CONSTANTES } from "../../../config/const.config";
 import { uniqueCinValidator } from "../../validators/unique-cin.async-validator";
+import { ageCinValdiator } from "../../validators/age-cin.validator";
 
 @Component({
   selector: "app-add-cv",
@@ -50,8 +51,9 @@ export class AddCvComponent implements OnDestroy {
       ],
     },
     {
-      validators: [],
+      validators: [ageCinValdiator],
       asyncValidators: [],
+      updateOn: "change",
     }
   );
   constructor() {

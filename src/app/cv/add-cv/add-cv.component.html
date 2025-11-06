@@ -21,6 +21,8 @@
 
   <label for="path">Path</label>
   <input id="path" type="text" formControlName="path" class="form-control" />
-
+  <div *ngIf="form.hasError('ageCin')" class="alert alert-danger">
+    {{ form.getError("ageCin") }}
+  </div>
   <button (click)="addCv()" class="btn btn-primary">Envoyer</button>
 </form>
