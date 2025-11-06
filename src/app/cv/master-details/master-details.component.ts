@@ -7,9 +7,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 @Component({
-  selector: "app-master-details",
-  templateUrl: "./master-details.component.html",
-  styleUrls: ["./master-details.component.css"],
+    selector: "app-master-details",
+    templateUrl: "./master-details.component.html",
+    styleUrls: ["./master-details.component.css"],
+    standalone: false
 })
 export class MasterDetailsComponent {
   acr = inject(ActivatedRoute);

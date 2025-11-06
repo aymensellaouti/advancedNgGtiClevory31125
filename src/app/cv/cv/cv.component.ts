@@ -8,9 +8,10 @@ import { SayHelloService } from "../../services/say-hello.service";
 import { LOGGERS_TOKEN } from "../../injection tokens/loggers.injection-token";
 import { TodoService } from "../../todo/service/todo.service";
 @Component({
-  selector: "app-cv",
-  templateUrl: "./cv.component.html",
-  styleUrls: ["./cv.component.css"],
+    selector: "app-cv",
+    templateUrl: "./cv.component.html",
+    styleUrls: ["./cv.component.css"],
+    standalone: false
 })
 export class CvComponent {
   cvs$: Observable<Cv[]> = this.cvService.getCvs().pipe(

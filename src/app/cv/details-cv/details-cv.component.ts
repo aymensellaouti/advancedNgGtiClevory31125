@@ -8,9 +8,10 @@ import { AuthService } from "../../auth/services/auth.service";
 import { catchError, EMPTY, Observable, switchMap } from "rxjs";
 
 @Component({
-  selector: "app-details-cv",
-  templateUrl: "./details-cv.component.html",
-  styleUrls: ["./details-cv.component.css"],
+    selector: "app-details-cv",
+    templateUrl: "./details-cv.component.html",
+    styleUrls: ["./details-cv.component.css"],
+    standalone: false
 })
 export class DetailsCvComponent implements OnInit {
   constructor(

@@ -11,9 +11,10 @@ import {
 import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: "app-test-observable",
-  templateUrl: "./test-observable.component.html",
-  styleUrls: ["./test-observable.component.css"],
+    selector: "app-test-observable",
+    templateUrl: "./test-observable.component.html",
+    styleUrls: ["./test-observable.component.css"],
+    standalone: false
 })
 export class TestObservableComponent implements OnDestroy {
   firstObservable$: Observable<number>;
