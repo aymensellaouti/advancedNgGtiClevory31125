@@ -51,6 +51,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { CvModule } from "./cv/cv.module";
 import { CdfilsComponent } from './cd/cdfils/cdfils.component';
 import { CdPereComponent } from './cd/cd-pere/cd-pere.component';
+import { UserListElementsComponent } from './optimizationPattern/user-list-elements/user-list-elements.component';
+import { FiboPipe } from './pipes/fibo.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +83,8 @@ import { CdPereComponent } from './cd/cd-pere/cd-pere.component';
     ProductsComponent,
     CdfilsComponent,
     CdPereComponent,
+    UserListElementsComponent,
+    FiboPipe,
   ],
   imports: [
     BrowserModule,
